@@ -1,0 +1,16 @@
+small:
+  number_of_accounts: 1
+  items_per_account: 1000
+  number_of_root_categories: 10
+  max_category_depth: 10
+  database_suffix: small
+medium:
+  number_of_accounts: 1000
+  products_per_account: 300
+  category_deep_ratio: 0.9
+  database_suffix: medium
+large:
+  number_of_accounts: 5000
+  products_per_account: 200
+  category_deep_ratio: 0.9
+  database_suffix: large
