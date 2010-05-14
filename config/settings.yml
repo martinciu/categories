@@ -1,6 +1,6 @@
 small:
-  number_of_accounts: 1
-  items_per_account: 100
+  number_of_accounts: 10
+  items_per_account: 1000
   number_of_root_categories: 10
   max_category_depth: 10
   database_suffix: small

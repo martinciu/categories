@@ -32,16 +32,35 @@ end
 
 namespace :benchmark do
   
-  desc "Wyszkiwanie"
-  task :products_find do
-    number_of_products = Product.count - 1
+  desc "Lista kategorii"
+  task :category_list do
     RBench.run(1) do
+      [1].each do |times|
+        report "Lista kategorii", times do
+          map = <<BEGIN
+            function () {
+                this.parent_categories.forEach(function (c) {emit(c, 1);});
+                emit(this.category + "$", 1);
+            };
+BEGIN
+          reduce = <<BEGIN
+            function (k, v) {
+                var total = 0;
+                for (var i = 0; i < v.length; i++) {
+                    total += v[i];
+                }
+                return total;
+            }
+BEGIN
+          results = Item.collection.map_reduce(map, reduce).find()
+          p results.count
+        end
+      end
     end
   end
   
-  
   desc "Wszystkie benchamrki"
-  task :all => [:products_find]
+  task :all => [:category_list]
 
 end
 
