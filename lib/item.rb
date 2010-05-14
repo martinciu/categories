@@ -6,6 +6,8 @@ class Item
   key :price, Float
   key :delivery_cost, Float
   key :account_id, Mongo::ObjectID
+  key :category, String
+  key :parent_categories, Array
   timestamps!
 
   belongs_to :account
@@ -14,6 +16,14 @@ class Item
   validates_presence_of :price
   validates_numericality_of :price
   
+  def initialize(attributes = {})
+    attributes[:parent_categories] = []
+    (attributes[:category].split("/").count).times do |i|
+      attributes[:parent_categories] << attributes[:category].split("/").slice(0, i).join("/") if i>0
+    end
+    super(attributes)
+  end
+    
   def self.fake(attributes = {})
     item = Item.create({
       :name              => Faker::Lorem.words(5).join(" "), 
@@ -25,6 +35,5 @@ class Item
     }.merge(attributes))
     return item
   end
-  
   
 end

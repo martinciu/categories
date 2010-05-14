@@ -7,7 +7,7 @@ namespace :db do
       account = Account.fake
       p "account: #{account_id}"
       SETTINGS["items_per_account"].times do |item_id|
-        item = Item.fake(:account_id => account_id)
+        item = Item.fake(:account_id =>account.id)
         p "item: #{item_id}"
       end
     end
