@@ -17,7 +17,7 @@ class Item
   validates_numericality_of :price
   
   def initialize(attributes = {})
-    attributes[:parent_categories] = []
+    attributes[:parent_categories] = ["/"]
     (attributes[:category].split("/").count).times do |i|
       attributes[:parent_categories] << attributes[:category].split("/").slice(0, i).join("/") if i>0
     end
